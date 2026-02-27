@@ -2,7 +2,7 @@
 
 #### Visualizations
 
-R code attached for rent, and SHS story.
+R code attached for Claremont rent and SHS story.
 
 Canva link for sex trade visualization:
 https://www.canva.com/design/DAHCe82eI24/vxdPag1GJ8xjrsQtIX-w5w/edit?utm_content=DAHCe82eI24&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton 
