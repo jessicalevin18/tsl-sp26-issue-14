@@ -1,0 +1,58 @@
+---
+title: "pregnancy"
+format: pdf
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+# source: maternal mortality rate (table 3) on this page: https://www.cdc.gov/nchs/data/hestat/maternal-mortality/2023/maternal-mortality-rates-2023.htm
+# insufficient maternal mortality rate data for Asians
+
+mm_data <- data.frame(Race = c("White, non-Hispanic", "Black, non-Hispanic", "Hispanic", "Overall"),
+                      mortality = c(8.4, 28, 10.1, 12.5),
+                      order = c(3, 1, 2, 4))
+cols_mm <- c("Black, non-Hispanic" = "#CBB3D6", "Hispanic" = "#8C59A6", "White, non-Hispanic" = "#5B396A", "Overall" = "#C3D0D9")
+
+cols_mm_bw <- c("Black, non-Hispanic" = "#ABAEB0", "Hispanic" = "#74787A", "White, non-Hispanic" = "#4F5254", "Overall" = "#0C0D0D")
+```
+
+```{r}
+col_mm <- mm_data %>%
+  mutate(Race = fct_relevel(Race, "Black, non-Hispanic", "Hispanic", "White, non-Hispanic", "Overall")) %>%
+  ggplot(aes(x = reorder(Race, order), y = mortality, fill = Race)) +
+  geom_col() +
+  scale_fill_manual(values = cols_mm, name = "Race") +
+  theme_minimal() +
+  theme(text = element_text(family = "Palatino"),
+        axis.title.x = element_text(margin = margin(t = 15)),
+        axis.title.y = element_text(margin = margin(r = 10))) +
+  labs(title = "Maternal Mortality Rate for Mothers Younger Than 25 by Race (2023)",
+       x = "Race",
+       y = "2023 Maternal Mortality Rate")
+
+col_mm
+```
+```{r}
+
+bw_mm <- mm_data %>%
+  mutate(Race = fct_relevel(Race, "Black, non-Hispanic", "Hispanic", "White, non-Hispanic", "Overall")) %>%
+  ggplot(aes(x = reorder(Race, order), y = mortality, fill = Race)) +
+  geom_col() +
+  scale_fill_manual(values = cols_mm_bw, name = "Race") +
+  theme_minimal() +
+  theme(text = element_text(family = "Palatino"),
+        axis.title.x = element_text(margin = margin(t = 15)),
+        axis.title.y = element_text(margin = margin(r = 10)),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  labs(title = "Maternal Mortality Rate for Mothers Younger Than 25 by Race (2023)",
+       x = "Race",
+       y = "2023 Maternal Mortality Rate")
+
+bw_mm
+```
+

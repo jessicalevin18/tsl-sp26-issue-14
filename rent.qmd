@@ -1,0 +1,65 @@
+---
+title: "rent"
+format: pdf
+editor: visual
+---
+
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+# source: https://www.apartments.com/rent-market-trends/claremont-ca/?
+# https://www.apartments.com/rent-market-trends/us/
+rent_data <- data.frame(Location = c("Claremont", "Nationwide"),
+                        rent = c(1842, 1626))
+```
+
+```{r}
+# color
+cols <- c("Claremont" = "#315731", "Nationwide"= "#7D997A")
+
+col <- rent_data %>%
+  ggplot(aes(x = Location, y = rent, fill = Location))+
+  geom_col()+
+  scale_fill_manual(values = cols, name = "Location") +
+  theme_minimal() +
+  theme(text = element_text(family = "Palatino"),
+        axis.title.x = element_text(margin = margin(t = 15)),
+        axis.title.y = element_text(margin = margin(r = 10))) +
+  labs(title = "Average Monthly Rent for One Bedroom Apartment in Claremont vs. Nationwide Average",
+       x = "Location",
+       y = "Average Monthy Rent")
+
+col
+```
+
+
+```{r}
+cols_bw <- c("Claremont" = "#3B3B3B", "Nationwide"= "#969696")
+
+bw <- rent_data %>%
+  ggplot(aes(x = Location, y = rent, fill = Location))+
+  geom_col()+
+  scale_fill_manual(values = cols_bw, name = "Location") +
+  theme_minimal() +
+  theme(text = element_text(family = "Palatino"),
+        axis.title.x = element_text(margin = margin(t = 15)),
+        axis.title.y = element_text(margin = margin(r = 10)),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  labs(title = "Average Monthly Rent for One Bedroom Apartment in Claremont vs. Nationwide Average",
+       x = "Location",
+       y = "Average Monthy Rent")
+
+bw
+```
+```{r}
+ggsave("claremont-rent-bw.pdf", plot = bw, device = "pdf", width = 8, height = 6)
+```
+
+```{r}
+ggsave("claremont-rent-col.pdf", plot = col, device = "pdf", width = 8, height = 6)
+```
+
